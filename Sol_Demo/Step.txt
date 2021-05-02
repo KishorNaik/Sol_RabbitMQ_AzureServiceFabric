@@ -1,0 +1,52 @@
+Step 1
+Run your visual studio instance as Administrator mode.
+
+Create a Service fabric application with services.
+
+Step 2
+Start the rabbitMQ service
+http://localhost:15672
+
+Step 2.
+Go to Main solution (Sol_Demo). Right Click on Solution and Select Properties. Select Multiple Project.
+Note: Select Service Fabric Solution Only, Start the Action.
+
+Step 3.
+Make sure the project(s) you have set to Deploy is(are) Set As Startup Project(s). And in Configuration Manager the checkboxes Build and Deploy are ticked for this project.
+
+Step 3.
+Build and Deploy into the cluster.
+Open app in browser. 
+http://localhost:19081
+
+
+Configuration.
+
+If you want to run application on multiple node. then do the following instruction.
+
+Step 1:
+On each Api solution, Go to PackageRoot folder, and select the ServiceManifest.xml.
+Find the following Tag
+ <Endpoint Protocol="http" Name="ServiceEndpoint" Type="Input" Port="8367" />
+
+ Remove the Port Attribute.
+
+Step 2:
+ On Each Service Fabric Solution. Go to ApplicationParameters folder, select the Local.5Node.xml
+ Find the Following Tag
+  <Parameter Name="Producer.Api_InstanceCount" Value="1" />
+
+Set Instance count.
+
+Step 3:
+Go to Service Fabric Explorer web app.
+
+Go to Application Node. and Select the EndPoints. (Note: Here you will get dynamic Port No) (Here you can Test Api through swagger )
+
+http://desktop-jm6n8tl:30002/swagger/index.html
+http://desktop-jm6n8tl:32001/swagger/index.html
+
+
+Call Services using default Gateway. (Here Swagger will not run/ Test api using POSTMAN)
+
+http://localhost:19081/Producers.ServiceFabric/Producer.Api/api/publish/demo
